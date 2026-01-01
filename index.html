@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Your Money - Financial Literacy Reimagined</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: #0a0e27;
+            color: #fff;
+        }
+
+        /* Section 1 - Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -250px;
+            right: -250px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            bottom: -150px;
+            left: -150px;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-30px); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .problem-solution {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 1s ease 0.3s backwards;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        .card p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .highlight {
+            color: #ffd700;
+            font-weight: 600;
+        }
+
+        /* Section 2 - Carousel */
+        .carousel-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 100%);
+            padding: 4rem 2rem;
+            position: relative;
+        }
+
+        .carousel-container {
+            max-width: 1000px;
+            text-align: center;
+        }
+
+        .carousel-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 3rem;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .carousel {
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .carousel-item {
+            position: absolute;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 800px;
+        }
+
+        .carousel-item.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .carousel-item h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .carousel-item p {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: #e0e0e0;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #667eea;
+            transform: scale(1.3);
+        }
+
+        /* Section 3 - CTA */
+        .cta-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 4rem 2rem;
+        }
+
+        .cta-content {
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .cta-content h2 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .cta-content p {
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.5rem 4rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.3);
+            border: 3px solid #fff;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* About Us Section */
+        .about-section {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a3e 0%, #0a0e27 100%);
+            padding: 4rem 2rem;
+        }
+
+        .about-content {
+            max-width: 1000px;
+            text-align: center;
+        }
+
+        .about-content h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 2rem;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-content p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .team {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            font-size: 1.2rem;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            padding: 4rem 2rem;
+        }
+
+        .contact-content {
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .contact-content h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .contact-content p {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #fff;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1.2rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #667eea;
+            background: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+        }
+
+        .form-message {
+            margin-top: 1rem;
+            text-align: center;
+            font-size: 1.1rem;
+            display: none;
+        }
+
+        .form-message.success {
+            color: #4ade80;
+        }
+
+        .form-message.error {
+            color: #ff6b6b;
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Section 1: Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Game Your Money</h1>
+            <div class="problem-solution">
+                <div class="card">
+                    <h2>The Problem</h2>
+                    <p>After conducting a nationwide survey, we discovered a critical gap: teens report <strong>less than 50% confidence in their ability to manage finances</strong> when entering the real world.</p>
+                </div>
+                <div class="card">
+                    <h2>Our Solution</h2>
+                    <p>AI-powered simulations and interactive chatbots that make learning about money fun, engaging, and practical. Experience real financial scenarios in a safe, game-based environment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Rotating Carousel -->
+    <section class="carousel-section">
+        <div class="carousel-container">
+            <h2 class="carousel-title">Why Financial Literacy Matters</h2>
+            <div class="carousel">
+                <div class="carousel-item active">
+                    <h3>Build Wealth Early</h3>
+                    <p>Understanding compound interest and smart investing in your teens can set you up for financial freedom decades earlier.</p>
+                </div>
+                <div class="carousel-item">
+                    <h3>Avoid Debt Traps</h3>
+                    <p>Learn to recognize predatory loans, credit card pitfalls, and make informed borrowing decisions that protect your future.</p>
+                </div>
+                <div class="carousel-item">
+                    <h3>Achieve Your Dreams</h3>
+                    <p>From buying your first car to funding college or starting a business—financial skills turn dreams into achievable goals.</p>
+                </div>
+                <div class="carousel-item">
+                    <h3>Make Confident Decisions</h3>
+                    <p>Navigate budgeting, taxes, insurance, and investments with knowledge and confidence instead of fear and confusion.</p>
+                </div>
+                <div class="carousel-item">
+                    <h3>Create Opportunities</h3>
+                    <p>Financial literacy opens doors—better job prospects, entrepreneurship, and the freedom to choose your path in life.</p>
+                </div>
+            </div>
+            <div class="carousel-dots">
+                <div class="dot active" data-index="0"></div>
+                <div class="dot" data-index="1"></div>
+                <div class="dot" data-index="2"></div>
+                <div class="dot" data-index="3"></div>
+                <div class="dot" data-index="4"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: CTA -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Ready to Level Up?</h2>
+            <p>Start your financial literacy journey today and unlock the power of smart money management.</p>
+            <a href="https://your-game-link-here.com" class="cta-button">Play Now</a>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="about-section">
+        <div class="about-content">
+            <h2>About Us</h2>
+            <p>We're three high schoolers creating what we didn't have—a readily available financial assistant that helps teens learn terms the easy way instead of failing and having to get out of debt later.</p>
+            <p>Too many young people enter adulthood without the tools they need to succeed financially. We're changing that by making financial education accessible, engaging, and actually useful.</p>
+            <div class="team">
+                <div class="team-member">Prital Srikanth</div>
+                <div class="team-member">Nirvi Baddela</div>
+                <div class="team-member">Bani Sabharwal</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-content">
+            <h2>Contact Us</h2>
+            <p>Have questions, feedback, or want to get involved? We'd love to hear from you.</p>
+            <div class="contact-form">
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Tell us what's on your mind..." required></textarea>
+                </div>
+                <button type="button" class="submit-button" onclick="submitForm()">Send Message</button>
+                <div class="form-message" id="formMessage"></div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Carousel functionality
+        let currentSlide = 0;
+        const items = document.querySelectorAll('.carousel-item');
+        const dots = document.querySelectorAll('.dot');
+        const totalSlides = items.length;
+
+        function showSlide(index) {
+            items.forEach(item => item.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            items[index].classList.add('active');
+            dots[index].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        setInterval(nextSlide, 4000);
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                currentSlide = parseInt(dot.dataset.index);
+                showSlide(currentSlide);
+            });
+        });
+
+        // Contact form submission
+        async function submitForm() {
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            const formMessage = document.getElementById('formMessage');
+            const submitButton = document.querySelector('.submit-button');
+
+            if (!email || !message) {
+                formMessage.textContent = 'Please fill in all fields.';
+                formMessage.className = 'form-message error';
+                formMessage.style.display = 'block';
+                return;
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                formMessage.textContent = 'Please enter a valid email address.';
+                formMessage.className = 'form-message error';
+                formMessage.style.display = 'block';
+                return;
+            }
+
+            submitButton.textContent = 'Sending...';
+            submitButton.disabled = true;
+
+            try {
+                // Store the message data
+                const timestamp = new Date().toISOString();
+                const messageKey = `contact_${timestamp}_${Math.random().toString(36).substr(2, 9)}`;
+                
+                await window.storage.set(messageKey, JSON.stringify({
+                    email: email,
+                    message: message,
+                    timestamp: timestamp
+                }));
+
+                formMessage.textContent = 'Message sent successfully! We\'ll get back to you soon.';
+                formMessage.className = 'form-message success';
+                formMessage.style.display = 'block';
+                
+                document.getElementById('email').value = '';
+                document.getElementById('message').value = '';
+            } catch (error) {
+                formMessage.textContent = 'There was an error sending your message. Please try again.';
+                formMessage.className = 'form-message error';
+                formMessage.style.display = 'block';
+                console.error('Form submission error:', error);
+            }
+
+            submitButton.textContent = 'Send Message';
+            submitButton.disabled = false;
+        }
+    </script>
+</body>
+</html>
